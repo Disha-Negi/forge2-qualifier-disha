@@ -1,60 +1,73 @@
-const tasks = [
-  {
-    title: "NLP Revision",
-    priority: "High",
-  },
-  {
-    title: "Forge Project",
-    priority: "Medium",
-  },
-  {
-    title: "DSA Practice",
-    priority: "High",
-  },
-];
+import "../styles/tasklist.css";
 
-function TaskList() {
+function TaskList({
+  tasks,
+  toggleTask,
+  deleteTask,
+}) {
+
   return (
-    <div
-      style={{
-        marginTop: "35px",
-      }}
-    >
+
+    <div className="task-list">
+
       <h2>Today's Tasks</h2>
 
-      {tasks.map((task) => (
-        <div
-          key={task.title}
-          style={{
-            background: "white",
-            marginTop: "15px",
-            padding: "20px",
-            borderRadius: "12px",
-            display: "flex",
-            justifyContent: "space-between",
-            boxShadow: "0 8px 18px rgba(0,0,0,.08)",
-          }}
-        >
-          <div>
-            <h3>{task.title}</h3>
+      {
+
+        tasks.length === 0 ?
+
+        <p>No tasks yet. Add your first task!</p>
+
+        :
+
+        tasks.map(task=>(
+
+          <div
+            className="task"
+            key={task.id}
+          >
+
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={()=>toggleTask(task.id)}
+            />
+
+            <div
+  className="task-info"
+  style={{
+    flex: 1,
+  }}
+>
+  <h3>{task.title}</h3>
+
+  <p>
+    {task.subject} • {task.priority} • {task.date}
+  </p>
+</div>
+
+<button
+  onClick={() => deleteTask(task.id)}
+  style={{
+    background: "#ef4444",
+    color: "white",
+    border: "none",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    cursor: "pointer",
+  }}
+>
+  Delete
+</button>
+
           </div>
 
-          <span
-            style={{
-              background:
-                task.priority === "High"
-                  ? "#ef4444"
-                  : "#f59e0b",
-              color: "white",
-              padding: "6px 12px",
-              borderRadius: "20px",
-            }}
-          >
-            {task.priority}
-          </span>
-        </div>
-      ))}
+        ))
+
+      }
+
     </div>
+
   );
 }
 

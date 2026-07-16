@@ -1,21 +1,16 @@
+import "../styles/navbar.css";
+
 function Navbar() {
   return (
-    <nav
-      style={{
-        background: "#2563eb",
-        color: "white",
-        padding: "18px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.15)"
-      }}
-    >
-      <h2>📚 StudyGenie AI</h2>
+    <nav className="navbar">
+      <div className="logo">
+        📚 StudyGenie AI
+      </div>
 
-      <div style={{display:"flex",gap:"30px"}}>
+      <div className="links">
         <span>Dashboard</span>
         <span>Tasks</span>
+        <span>Progress</span>
       </div>
     </nav>
   );

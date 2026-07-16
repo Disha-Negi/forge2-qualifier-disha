@@ -1,0 +1,49 @@
+.task-list{
+
+background:white;
+
+margin:40px auto;
+
+padding:30px;
+
+width:80%;
+
+border-radius:15px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+}
+
+.task{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+padding:15px;
+
+border-bottom:1px solid #eee;
+
+}
+
+.task:last-child{
+
+border:none;
+
+}
+
+.task-info h3{
+
+margin:0;
+
+}
+
+.task-info p{
+
+margin-top:5px;
+
+color:#666;
+
+}

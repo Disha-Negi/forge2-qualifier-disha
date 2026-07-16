@@ -1,54 +1,85 @@
-function TaskForm() {
+import { useState } from "react";
+
+import "../styles/taskform.css";
+
+function TaskForm({ addTask }) {
+
+  const [title, setTitle] = useState("");
+  const [subject, setSubject] = useState("DSA");
+  const [priority, setPriority] = useState("High");
+  const [date, setDate] = useState("");
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    if (!title.trim()) return;
+
+    addTask({
+      title,
+      subject,
+      priority,
+      date,
+    });
+
+    setTitle("");
+    setDate("");
+  };
+
   return (
-    <div
-      style={{
-        background: "white",
-        padding: "25px",
-        marginTop: "35px",
-        borderRadius: "16px",
-        boxShadow: "0 8px 20px rgba(0,0,0,.08)",
-      }}
-    >
+
+    <div className="task-form">
+
       <h2>Add Study Task</h2>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
-          gap: "10px",
-          marginTop: "20px",
-        }}
-      >
-        <input placeholder="Task Title" />
+      <form onSubmit={handleSubmit}>
 
-        <select>
+        <input
+          type="text"
+          placeholder="Task Title"
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
+        />
+
+        <select
+          value={subject}
+          onChange={(e)=>setSubject(e.target.value)}
+        >
+
           <option>DSA</option>
-          <option>NLP</option>
+          <option>DBMS</option>
           <option>OS</option>
+          <option>CN</option>
+          <option>Java</option>
+          <option>React</option>
+
         </select>
 
-        <select>
+        <select
+          value={priority}
+          onChange={(e)=>setPriority(e.target.value)}
+        >
+
           <option>High</option>
           <option>Medium</option>
           <option>Low</option>
+
         </select>
 
-        <input type="date" />
+        <input
+          type="date"
+          value={date}
+          onChange={(e)=>setDate(e.target.value)}
+        />
 
-        <button
-          style={{
-            background: "#2563eb",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            padding: "12px 18px",
-            cursor: "pointer",
-          }}
-        >
+        <button>
           Add
         </button>
-      </div>
+
+      </form>
+
     </div>
+
   );
 }
 

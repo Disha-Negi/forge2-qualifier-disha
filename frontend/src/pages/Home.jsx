@@ -1,38 +1,72 @@
+import { useEffect, useState } from "react";
+
+import "../styles/home.css";
+import AIPlanner from "../components/AIPlanner";
 import Dashboard from "../components/Dashboard";
 import Progress from "../components/Progress";
 import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
 
 function Home() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("studyTasks")) || [];
+    setTasks(saved);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("studyTasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTask = (task) => {
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        completed: false,
+        ...task,
+      },
+    ]);
+  };
+
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  };
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
-    <div
-      style={{
-        maxWidth: "1200px",
-        margin: "40px auto",
-        padding: "20px"
-      }}
-    >
-      <h1 style={{textAlign:"center"}}>
-        📖 StudyGenie AI
-      </h1>
+    <div>
+      <div className="hero">
+        <h1>📖 StudyGenie AI</h1>
 
-      <p
-        style={{
-          textAlign:"center",
-          marginTop:15,
-          color:"#555"
-        }}
-      >
-        Plan smarter, stay focused and achieve your learning goals.
-      </p>
+        <p>
+          Plan smarter, stay focused and complete your goals.
+        </p>
+      </div>
 
-      <Dashboard />
+      <Dashboard tasks={tasks} />
 
-      <Progress />
+      <Progress tasks={tasks} />
 
-      <TaskForm />
+      <TaskForm addTask={addTask} />
 
-      <TaskList />
+      <TaskList
+        tasks={tasks}
+        toggleTask={toggleTask}
+        deleteTask={deleteTask}
+      />
+
+      <AIPlanner tasks={tasks} />
     </div>
   );
 }
