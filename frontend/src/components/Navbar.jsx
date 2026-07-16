@@ -8,12 +8,13 @@ function Navbar() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.15)"
       }}
     >
-      <h2>AI Study Planner</h2>
+      <h2>📚 StudyGenie AI</h2>
 
-      <div>
-        <span style={{ marginRight: "20px" }}>Dashboard</span>
+      <div style={{display:"flex",gap:"30px"}}>
+        <span>Dashboard</span>
         <span>Tasks</span>
       </div>
     </nav>
